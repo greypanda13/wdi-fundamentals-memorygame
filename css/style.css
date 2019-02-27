@@ -1,0 +1,77 @@
+a {
+  font-family: "Raleway";
+  color: #f15b31;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 18px;
+  margin: 0 20px;
+}
+
+body {
+  text-align: center;
+  text-decoration: none;
+  text-transform: uppercase;
+  margin: 0;
+}
+
+footer {
+  text-transform: uppercase;
+  padding: 0 20px;
+  background-color: #0d2c40;
+  color: white;
+  font-size: 14px;
+  letter-spacing .08em;
+  font-weight: 500;
+}
+
+header {
+  background-color: #f15b31;
+  color: #ffffff;
+  padding: 30px 20px;
+}
+
+h1 {
+  font-family: "Raleway", sans-serif;
+  color: #0d2c40;
+  letter-spacing: 1px;
+  font-weight: 400;
+  font-size: 45px;
+  margin: 0;
+}
+
+h2 {
+  font-family: "Raleway";
+  color: #0d2c40;
+  letter-spacing: 1px;
+  font-weight: 600;
+  font-size: 20px;
+}
+
+img {
+  margin: 40px 8px 0;
+}
+
+main {
+  width: 850px;
+  margin: 35px auto;
+}
+
+nav {
+  background-color: #00a6b3;
+  color: #ffffff;
+  padding: 20px 0;
+}
+
+p {
+  font-family: "Droid Serif", serif;
+  line-height: 26px;
+  font-size: 18px;
+}
+.copyright {
+  font-family: "Raleway";
+  float: left;
+}
+.message {
+  font-family: "Raleway";
+  float: right;
+}
