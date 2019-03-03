@@ -7,6 +7,14 @@ a {
   margin: 0 20px;
 }
 
+a:hover {
+  border-color: white;
+}
+
+a.nav:hover {
+  border-bottom: 2px solid transparent;
+}
+
 body {
   text-align: center;
   text-decoration: none;
@@ -15,12 +23,14 @@ body {
 }
 
 footer {
+  margin: 20px;
   text-transform: uppercase;
   padding: 0 20px;
   background-color: #0d2c40;
-  color: white;
-  font-size: 14px;
-  letter-spacing .08em;
+  color: #ffffff;
+  font-size: 140px;
+  line-height: 30px;
+  letter-spacing: .08em;
   font-weight: 500;
 }
 
@@ -67,6 +77,14 @@ p {
   line-height: 26px;
   font-size: 18px;
 }
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  content: " ";
+  clear: both;
+  height: 20px;
+}
 .copyright {
   font-family: "Raleway";
   float: left;
@@ -74,4 +92,8 @@ p {
 .message {
   font-family: "Raleway";
   float: right;
+}
+.name {
+  color: #f15b31;
+  font-weight: 700;
 }
