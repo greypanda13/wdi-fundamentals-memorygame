@@ -4,36 +4,82 @@ var cards = [
   {
     rank: "queen",
     suit: "hearts",
-    cardImage: "images/queen-of-hearts.png"
+    cardImage: "images/queen-of-hearts.png",
+    isFaceUp: false
   },
   {
     rank: "queen",
     suit: "diamonds",
-    cardImage: "images/queen-of-diamonds.png"
+    cardImage: "images/queen-of-diamonds.png",
+    isFaceUp: false
   },
   {
     rank: "king",
     suit: "hearts",
-    cardImage: "images/king-of-hearts.png"
+    cardImage: "images/king-of-hearts.png",
+    isFaceUp: false
   },
   {
     rank: "king",
     suit: "diamonds",
-    cardImage: "images/king-of-diamonds.png"
+    cardImage: "images/king-of-diamonds.png",
+    isFaceUp: false
   }
 ]
 
+var narrationNo = 1;
+
+var round = 1;
+
+var score = {
+  current: 0,
+  highscore: 0
+}
+
 var cardsInPlay = [];
 
+function nextRound() {
+  round = round + 1;
+  document.getElementById('roundPrint').textContent = round;
+}
+
+function cantFlip() {
+  console.log("Can't flip. Already face-up.");
+}
+
+function allFaceDown() {
+  for (var i = 0; i < cards.length; i++) {
+    cards[i].isFaceUp = false;
+    document.getElementsByTagName('img')[i].setAttribute('src', 'images/back.png');
+  }
+  for (i = cardsInPlay.length; i >= 0; i--) {
+    cardsInPlay.pop();
+  }
+}
+
 function checkForMatch() {
-  if (cardsInPlay.length === 2) {
+  if (cardsInPlay.length % 2 === 0) {
     if (cardsInPlay[0] === cardsInPlay[1]) {
       console.log("You found a match!");
+      score.current = score.current + 1;
+      console.log(score.current);
+      document.getElementById('scorePrint').textContent = score.current;
+      //pause before flipping cards back over, if possible
+      if (cardsInPlay.length === cards.length) {
+        allFaceDown();
+        nextRound();
+      }
     } else {
       console.log("Sorry, try again.");
+      score.current = score.current - 1;
+      console.log(score.current);
+      document.getElementById('scorePrint').textContent = score.current;
+      //flip cards back over
+      //lastFaceDown();
     }
   }
 }
+
 
 function createBoard() {
   for (var i = 0; i < cards.length; i++) {
@@ -43,23 +89,27 @@ function createBoard() {
     cardElement.addEventListener('click', flipCard);
     document.getElementById('game-board').appendChild(cardElement);
   }
+  var buttonElement = document.createElement('button');
+  cardElement.setAttribute('data-id', i);
+  cardElement.addEventListener('click', );
+  document.getElementById('game-board').appendChild(cardElement);
 }
 
 function flipCard () {
   var cardId = this.getAttribute('data-id');
-  console.log("User flipped " + cards[cardId].rank);
-  cardsInPlay.push(cards[cardId].rank);
-  console.log(cards[cardId].cardImage);
-  console.log(cards[cardId].suit);
-
-  this.setAttribute('src', cards[cardId].cardImage);
-  checkForMatch();
+  if (cards[cardId].isFaceUp===false) {
+    console.log("User flipped " + cards[cardId].rank + " of " + cards[cardId].suit);
+    var actionNarration = document.createElement('li');
+    actionNarration.setAttribute('message-text', narrationNo.toString());
+    document.getElementById('message-center').appendChild(actionNarration);    cardsInPlay.push(cards[cardId].rank);
+    this.setAttribute('src', cards[cardId].cardImage);
+    cards[cardId].isFaceUp = true;
+    checkForMatch();
+  } else {
+    cantFlip();
+  }
 }
 
 createBoard();
-
-
-
-
 
 //when done, submit using https://goo.gl/forms/POhiqySbWZs5c0n63
