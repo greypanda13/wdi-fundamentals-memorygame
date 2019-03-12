@@ -57,6 +57,21 @@ function allFaceDown() {
   }
 }
 
+function lastFaceDown() {
+  console.log("Will turn back over ");
+  for (var i = 0; i <= 1; i++) {
+    console.log(cardsInPlay[cardsInPlay.length - (i + 1)]);
+    /*var n = cardsInPlay[cardsInPlay.length - (i + 1)];
+    cards[n].isFaceUp = false;
+    document.getElementsByTagName('img')[n].setAttribute('src', 'images/back.png');*/
+  }
+
+  //accept 'OK' button press before popping
+  for (i = 1; i >= 0; i--) {
+    cardsInPlay.pop();
+  }
+}
+
 function checkForMatch() {
   if (cardsInPlay.length % 2 === 0) {
     if (cardsInPlay[0] === cardsInPlay[1]) {
@@ -75,7 +90,7 @@ function checkForMatch() {
       console.log(score.current);
       document.getElementById('scorePrint').textContent = score.current;
       //flip cards back over
-      //lastFaceDown();
+      lastFaceDown();
     }
   }
 }
@@ -89,18 +104,21 @@ function createBoard() {
     cardElement.addEventListener('click', flipCard);
     document.getElementById('game-board').appendChild(cardElement);
   }
-  var buttonElement = document.createElement('button');
-  cardElement.setAttribute('data-id', i);
-  cardElement.addEventListener('click', );
-  document.getElementById('game-board').appendChild(cardElement);
+  //var buttonElement = document.createElement('button');
+  //cardElement.setAttribute('data-id', 'restartButton');
+  //cardElement.addEventListener('click', );
+  //document.getElementById('game-board').appendChild(cardElement);
 }
 
 function flipCard () {
   var cardId = this.getAttribute('data-id');
+  //console.log("cards[" + cardId + "].isFaceUp = " + cards[cardId].isFaceUp);
   if (cards[cardId].isFaceUp===false) {
     console.log("User flipped " + cards[cardId].rank + " of " + cards[cardId].suit);
+    var newAlertString = "User flipped " + cards[cardId].rank + " of " + cards[cardId].suit;
     var actionNarration = document.createElement('li');
-    actionNarration.setAttribute('message-text', narrationNo.toString());
+    actionNarration.setAttribute('message-text', newAlertString);
+    //narrationNo.toString();
     document.getElementById('message-center').appendChild(actionNarration);    cardsInPlay.push(cards[cardId].rank);
     this.setAttribute('src', cards[cardId].cardImage);
     cards[cardId].isFaceUp = true;
