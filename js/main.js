@@ -27,6 +27,8 @@ var cards = [
   }
 ]
 
+var isButtonClickNeeded = false;
+
 var narrationNo = 1;
 
 var round = 1;
@@ -47,6 +49,14 @@ function cantFlip() {
   console.log("Can't flip. Already face-up.");
 }
 
+function mustClickButton() {
+  console.log("Please click 'OK' button to proceed with gameplay.");
+}
+
+function noButtonClickNeeded() {
+  isButtonClickNeeded = false;
+}
+
 function allFaceDown() {
   for (var i = 0; i < cards.length; i++) {
     cards[i].isFaceUp = false;
@@ -59,17 +69,32 @@ function allFaceDown() {
 
 function lastFaceDown() {
   console.log("Will turn back over ");
-  for (var i = 0; i <= 1; i++) {
+  /*for (var i = 0; i <= 1; i++) {
     console.log(cardsInPlay[cardsInPlay.length - (i + 1)]);
-    /*var n = cardsInPlay[cardsInPlay.length - (i + 1)];
-    cards[n].isFaceUp = false;
-    document.getElementsByTagName('img')[n].setAttribute('src', 'images/back.png');*/
-  }
+
+    var n = cardsInPlay[cardsInPlay.length - (i + 1)];
+    //cards[n].isFaceUp = false;
+    //document.getElementsByTagName('data-id')[n].setAttribute('src', 'images/back.png');
+    //console.log(n);
+  }*/
+  var m = document.getElementsByTagName('data-id');
+  console.log(m);
 
   //accept 'OK' button press before popping
   for (i = 1; i >= 0; i--) {
     cardsInPlay.pop();
   }
+}
+
+function hideAlertCenter() {
+  var alertCenter = document.getElementById('alert-center');
+  alertCenter.innerHTML = '';
+}
+
+function okButtonEvents() {
+  noButtonClickNeeded();
+  lastFaceDown();
+  hideAlertCenter();
 }
 
 function checkForMatch() {
@@ -85,16 +110,23 @@ function checkForMatch() {
         nextRound();
       }
     } else {
+      isButtonClickNeeded = true;
       console.log("Sorry, try again.");
       score.current = score.current - 1;
       console.log(score.current);
       document.getElementById('scorePrint').textContent = score.current;
-      //flip cards back over
-      lastFaceDown();
+      //alert player score has gone down; cards will be flipped back over
+      var alertTextElement = document.createElement('p');
+      alertTextElement.setAttribute('id', 'alert-p')
+      document.getElementById('alert-center').appendChild(alertTextElement);
+      document.getElementById('alert-p').textContent = "Not a match! 1 point has been deducted.";
+      var okButtonElement = document.createElement('button');
+      okButtonElement.setAttribute('id', 'alertPushButton');
+      okButtonElement.addEventListener('click', okButtonEvents);
+      document.getElementById('alert-center').appendChild(okButtonElement);
     }
   }
 }
-
 
 function createBoard() {
   for (var i = 0; i < cards.length; i++) {
@@ -113,7 +145,9 @@ function createBoard() {
 function flipCard () {
   var cardId = this.getAttribute('data-id');
   //console.log("cards[" + cardId + "].isFaceUp = " + cards[cardId].isFaceUp);
-  if (cards[cardId].isFaceUp===false) {
+  if (isButtonClickNeeded) {
+    mustClickButton();
+  } else if (cards[cardId].isFaceUp===false) {
     console.log("User flipped " + cards[cardId].rank + " of " + cards[cardId].suit);
     var newAlertString = "User flipped " + cards[cardId].rank + " of " + cards[cardId].suit;
     var actionNarration = document.createElement('li');
