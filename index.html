@@ -22,7 +22,9 @@
     <div id="highScoreboard">High score: <span id="highScorePrint">0</span></div>
     <div id="scoreboard">Current Score: <span id="scorePrint">0</span></div>
     <div id="roundBoard">Round: <span id="roundPrint">1</span></div>
-    <div id="reset" class="buttonSpace"></div>
+    <div id="reset" class="buttonSpace">
+      <button id="restartButton">Reset</button>
+    </div>
     <div id="game-board" class="board clearfix">
 
 <!--
@@ -32,12 +34,22 @@
       <img src="images/back.png" alt="King of Hearts">
 -->
     </div>
+    <div id="impass-d" class="impass"></div>
     <div id="alert-center" class="alert-center"></div>
     <div id="message-center" class="message-center">
-      <ul>
+      <ul id="message-list">
         <li>You may begin playing.</li>
       </ul>
     </div>
+
+    <!--
+    borrowed from stackoverflow. make work if time permits.
+    <div id="out" style="overflow:auto"></div>
+    <p>To be clear: We want the scrollbar to stick to the bottom if we have scrolled all the way down. If we scroll up, then we don't want the content to move.
+    </p>
+    -->
+
+
   </main>
 
   <footer class="clearfix">
