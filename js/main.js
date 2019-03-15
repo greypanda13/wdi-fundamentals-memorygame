@@ -145,13 +145,19 @@ function hideAlertCenter(x) {
   alertCenter.setAttribute('id', x);
 }
 
+function impassDisarm() {
+  var impassDiv = document.querySelector('.impass');
+  impassDiv.setAttribute('id', 'impass-d');
+  impassDiv.innerHTML = '';
+  impassNo = 0;
+  impassThrown = false;
+}
+
 function okButtonEvents() {
   noButtonClickNeeded();
   lastFaceDown();
   hideAlertCenter('neutral');
-  var impassDiv = document.querySelector('.impass');
-  impassDiv.setAttribute('id', 'impass-d');
-  impassDiv.innerHTML = '';
+  impassDisarm();
 }
 
 function nextRoundButtonEvents() {
@@ -168,9 +174,12 @@ function resetScore() {
 }
 
 function restartButtonEvents() {
+  noButtonClickNeeded();
   allFaceDown();
   resetScore();
   resetRound();
+  hideAlertCenter('neutral');
+  impassDisarm();
 }
 
 function recordMessage(newAlertString) {
